@@ -41,6 +41,7 @@ body{
 .input2{
     margin-left: 20px;
     margin-top: 10px;
+    outline: none;
     border: none;
     border-bottom: 1px solid grey;
 }
@@ -71,4 +72,27 @@ body{
     margin-left: 70px;
     border: none;
     outline: none;
+}
+ table.gridtable {
+     font-family: verdana,arial,sans-serif;
+     font-size:11px;
+     color:#333333;
+     background-color: white;
+     border-width: 1px;
+     border-color: #666666;
+     border-collapse: collapse;
+ }
+table.gridtable th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #dedede;
+}
+table.gridtable td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #ffffff;
 }

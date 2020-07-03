@@ -8,24 +8,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class GreetingController {
 
     @Autowired
-    GreetingServiceImpl service;
+    private GreetingServiceImpl service;
 
     @RequestMapping(path = "/",method = RequestMethod.GET)
     public String getAllGreetings(Model model) {
-        model.addAttribute("Greeting",service.getAll());
+        model.addAttribute("Greeting",service.getAllGreeting());
         return "index";
     }
 
     @RequestMapping(path = "/delete",method = RequestMethod.POST)
     public String deleteGreeting(@RequestParam int id, Model model) {
         service.deleteGreeting(id);
-        model.addAttribute("Greeting",service.getAll());
-        return "index";
+        return getAllGreetings(model);
+    }
+
+    @RequestMapping(path = "/add",method = RequestMethod.POST)
+    public String addGreeting(HttpServletRequest request, Model model) {
+       service.addGreeting(request.getParameter("firstName"),request.getParameter("lastName"));
+       return getAllGreetings(model);
     }
 }
