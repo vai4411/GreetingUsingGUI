@@ -1,5 +1,6 @@
 package com.bl.service;
 
+import com.bl.model.Greeting;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.springframework.http.HttpEntity;
@@ -9,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,6 +24,11 @@ public class GreetingServiceImpl implements IGreetingService {
         HttpEntity <String> entity = new HttpEntity<String>(headers);
         String greeting = template.exchange("http://localhost:8081/greeting/list", HttpMethod.GET, entity, String.class).getBody();
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(greeting, new TypeReference<List<Greeting>>(){});
+        try {
+            return mapper.readValue(greeting, new TypeReference<List<Greeting>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
