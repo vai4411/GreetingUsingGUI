@@ -40,11 +40,23 @@ public class GreetingServiceImpl implements IGreetingService {
     public Greeting addGreeting(String firstName, String lastName)  {
         TemplateManager.getTemplate()
                 .setMessageConverters(TemplateManager.getConverter());
-        Greeting greeting = new Greeting();
-        greeting.setName(firstName+" "+lastName);
-        HttpEntity<Greeting> request = new HttpEntity<>(greeting, TemplateManager.getHeader());
+        Greeting addGreeting = new Greeting();
+        addGreeting.setName(firstName+" "+lastName);
+        HttpEntity<Greeting> request = new HttpEntity<>(addGreeting, TemplateManager.getHeader());
         ResponseEntity<Greeting> result = TemplateManager.getTemplate()
                 .postForEntity("http://localhost:8081/greeting/add", request, Greeting.class);
+        return result.getBody();
+    }
+
+    @Override
+    public Greeting updateGreeting(int id, String firstName, String lastName) {
+        TemplateManager.getTemplate().setMessageConverters(TemplateManager.getConverter());
+        Greeting updateGreeting = new Greeting();
+        updateGreeting.setName(firstName+" "+lastName);
+        HttpEntity<Greeting> request = new HttpEntity<>(updateGreeting, TemplateManager.getHeader());
+        ResponseEntity<Greeting> result = TemplateManager.getTemplate()
+                .exchange("http://localhost:8081/greeting/update/"+id,
+                HttpMethod.PUT, request, Greeting.class);
         return result.getBody();
     }
 }

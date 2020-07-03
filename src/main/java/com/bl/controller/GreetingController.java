@@ -33,4 +33,10 @@ public class GreetingController {
        service.addGreeting(request.getParameter("firstName"),request.getParameter("lastName"));
        return getAllGreetings(model);
     }
+
+    @RequestMapping(path = "/update",method = RequestMethod.POST)
+    public String updateGreeting(HttpServletRequest request, Model model) {
+        service.updateGreeting(Integer.parseInt(request.getParameter("index")),request.getParameter("firstName"),request.getParameter("lastName"));
+        return getAllGreetings(model);
+    }
 }
