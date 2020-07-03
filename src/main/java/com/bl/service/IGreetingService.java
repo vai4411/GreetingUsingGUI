@@ -4,4 +4,5 @@ import java.util.List;
 
 public interface IGreetingService {
     List getAll();
+    void deleteGreeting(int id);
 }
